@@ -25,7 +25,6 @@ defmodule Life.Cell do
   end
 
   def position(pid) do
-    IO.inspect(pid)
     GenServer.call(pid, :position)
   end
 
@@ -34,15 +33,15 @@ defmodule Life.Cell do
     {:ok, state}
   end
 
+  # See game rules for this function's logic.
   @impl true
   def handle_call(:tick, _from, position_in_map) do
     to_remove =
       position_in_map
       |> count_neighbours()
       |> case do
-        2 -> []
-        3 -> []
-        _ -> [self()]
+        neighbours when neighbours not in [2, 3] -> [self()]
+        _ -> []
       end
 
     to_spawn =
