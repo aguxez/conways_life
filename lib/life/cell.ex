@@ -25,7 +25,6 @@ defmodule Life.Cell do
   end
 
   def position(pid) do
-    IO.inspect(pid)
     GenServer.call(pid, :position)
   end
 
@@ -40,9 +39,8 @@ defmodule Life.Cell do
       position_in_map
       |> count_neighbours()
       |> case do
-        2 -> []
-        3 -> []
-        _ -> [self()]
+        neighbours when neighbours not in [2, 3] -> [self()]
+        _ -> []
       end
 
     to_spawn =
