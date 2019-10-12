@@ -28,7 +28,9 @@ defmodule Life.Environment do
   # TODO: Print somewhere so we can see the actual output
 
   defp print_current_state(live_cells) do
-    # positions = Enum.map(live_cells, &Life.Cell.position/1)
+    positions = Enum.map(live_cells, &Life.Cell.position/1)
+
+    IO.inspect(positions)
 
     live_cells
   end
